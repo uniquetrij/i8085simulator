@@ -138,7 +138,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         toolBar.setRollover(true);
 
-        assemblyEditor.setText("assembly Editor");
+        assemblyEditor.setText("Assembly Editor");
         assemblyEditor.setFocusable(false);
         assemblyEditor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         assemblyEditor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
