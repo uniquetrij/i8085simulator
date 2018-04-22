@@ -17,10 +17,10 @@ public class Main
         br.close();
         try
         {
-            new Assambler();
-            Assambler.assamble(file);
+            new Assembler();
+            Assembler.assamble(file);
         }
-        catch(AssamblerException e)
+        catch(AssemblerException e)
         {
             System.err.println(e);
         }
@@ -31,9 +31,9 @@ public class Main
         try
         {
             new Simulator();
-            Simulator.simulate(Assambler.getCodeList());
+            Simulator.simulate(Assembler.getCodeList());
         }
-        catch(AssamblerException e)
+        catch(AssemblerException e)
         {
             System.err.println(e);
         }
@@ -60,7 +60,7 @@ public class Main
 
     public static void showListing()
     {
-        System.out.println(Assambler.getList());
+        System.out.println(Assembler.getList());
     }
 
 }

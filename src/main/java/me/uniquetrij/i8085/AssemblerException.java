@@ -1,21 +1,21 @@
 package me.uniquetrij.i8085;
 
 
-public final class AssamblerException extends RuntimeException
+public final class AssemblerException extends RuntimeException
 {
     private int ln;
-    public AssamblerException(){}
-    public AssamblerException(String message){super(message);}
-    public AssamblerException(String message,Throwable cause){super(message,cause);}
-    public AssamblerException(Throwable cause){super(cause);}
+    public AssemblerException(){}
+    public AssemblerException(String message){super(message);}
+    public AssemblerException(String message,Throwable cause){super(message,cause);}
+    public AssemblerException(Throwable cause){super(cause);}
 
-    public AssamblerException(int ln,Exception e)
+    public AssemblerException(int ln,Exception e)
     {
         super("In line "+ln+"\n"+e,new Throwable(e.getCause()));
         this.ln=ln;
     }
 
-    public AssamblerException(int ln,String line)
+    public AssemblerException(int ln,String line)
     {
         super("In line "+ln
              +"\nInstruction: "+line
@@ -25,7 +25,7 @@ public final class AssamblerException extends RuntimeException
         this.ln=ln;
     }
 
-    public AssamblerException(int ln)
+    public AssemblerException(int ln)
     {
         super("In line "+(ln+1)
              +"\nEND of assembly undefined"
@@ -35,7 +35,7 @@ public final class AssamblerException extends RuntimeException
         this.ln=ln;
     }
 
-    public AssamblerException(boolean isasmd)
+    public AssemblerException(boolean isasmd)
     {
         super("Sourcecode not assambled yet."
              +"\nAssamble sourcecode first",

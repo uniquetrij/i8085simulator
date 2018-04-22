@@ -2,7 +2,7 @@ package me.uniquetrij.i8085;
 
 
 import java.util.StringTokenizer;
-public final class Assambler
+public final class Assembler
 {
     private static int lncount;//count of lines in sourcecode
     private static int offset;
@@ -21,7 +21,7 @@ public final class Assambler
     private static boolean assambled;//says whether the sourcecode is assambled or not
     private static boolean orgset;//to check origin set or not
 
-    public Assambler()
+    public Assembler()
     {
         //to initialize all class variables with default values
         lncount=offset=opcount=bytcount=0;
@@ -52,7 +52,7 @@ public final class Assambler
             }
             catch(MnemonicException e)//line couldnot be converted, invalid mnemonic
             {
-                throw new AssamblerException(lncount,e);//notify this error
+                throw new AssemblerException(lncount,e);//notify this error
             }
             //else it is a valid mnemonic
 
@@ -98,7 +98,7 @@ public final class Assambler
             for(int i=0;i<dataList.length;i++)
             {
                 if(bytcount++>Memory.MAX_CAPACITY)//exceed memory limits
-                    throw new AssamblerException(lncount,line);//("Program couldnot be loaded at Origin: "+addr+"\nExceed memory limits")
+                    throw new AssemblerException(lncount,line);//("Program couldnot be loaded at Origin: "+addr+"\nExceed memory limits")
                 //else space available
 
                 //append data/opcode
@@ -118,7 +118,7 @@ public final class Assambler
         }
 
         if(endset==false)
-            throw new AssamblerException(lncount);//("END not set");
+            throw new AssemblerException(lncount);//("END not set");
 
         //resolve unknown labels if possible, in case labels were declared later but used earlier in the sourcecode
         clist=resolveUnknownLabels();
@@ -215,7 +215,7 @@ public final class Assambler
             }
             catch(MnemonicException e)
             {
-                throw new AssamblerException(lncount,e);//notify this error
+                throw new AssemblerException(lncount,e);//notify this error
             }
         }
         while(stcl.hasMoreTokens())//append the remaining
@@ -235,7 +235,7 @@ public final class Assambler
                 label=label.substring(label.indexOf(":")+1,label.indexOf("*"));
             }
             else
-                throw new AssamblerException("Label not found: "+label);
+                throw new AssemblerException("Label not found: "+label);
         }
         try
         {
@@ -243,7 +243,7 @@ public final class Assambler
         }
         catch(NumberFormatException e)
         {
-            throw new AssamblerException("Invalid brake point address: "+label);
+            throw new AssemblerException("Invalid brake point address: "+label);
         }
     }
 

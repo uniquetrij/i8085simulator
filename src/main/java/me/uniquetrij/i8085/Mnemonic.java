@@ -38,7 +38,7 @@ public final class Mnemonic
             if(labels.indexOf('*'+t0+':')>=0)
                 throw new MnemonicException(instruction,t0);//("Label Already Defined");
             else
-                labels=Assambler.appendLabel(t0,Assambler.getAddress().toString());
+                labels=Assembler.appendLabel(t0,Assembler.getAddress().toString());
 
         int opcode=0;//dataList value of the operation
         Data d=new Data();//for 8-bit parameter
@@ -1102,14 +1102,14 @@ public final class Mnemonic
 
                     case "EQU":
                     {
-                        Assambler.appendLabel(sLabels(instruction,t1,t2=words.nextToken(),words.indexOfWord(2)-1,labels));
+                        Assembler.appendLabel(sLabels(instruction,t1,t2=words.nextToken(),words.indexOfWord(2)-1,labels));
                         dataList=new Data[]{};
                         word=new String[]{t0,t1,words.nextToken(),t2,words.nextToken()};
                     }break;
 
                     case "SET":
                     {
-                        Assambler.appendLabel(dxLabels(instruction,t1,t2=words.nextToken(),words.indexOfWord(2)-1,labels,lncount,false).toString());
+                        Assembler.appendLabel(dxLabels(instruction,t1,t2=words.nextToken(),words.indexOfWord(2)-1,labels,lncount,false).toString());
                         dataList=new Data[]{};
                         word=new String[]{t0,t1,words.nextToken(),t2,words.nextToken()};
                     }break;
@@ -1117,7 +1117,7 @@ public final class Mnemonic
                     case "ORG":
                     {
                         dx=dxLabels(instruction,t1,t2=words.nextToken(),words.indexOfWord(2)-1,labels,lncount,false);
-                        Assambler.setOrigin(dx);
+                        Assembler.setOrigin(dx);
                         dataList=new Data[]{};
                         word=new String[]{t0,t1,words.nextToken(),t2,words.nextToken()};
                     }break;
@@ -1186,7 +1186,7 @@ public final class Mnemonic
                     {
                         if(endProcess==true)
                             throw new MnemonicException(count1-count2,instruction,s.substring(1,s.length()-1));//("Undefined Label"+s);
-                        Assambler.appendUnknownLabel(instruction,t1,t2.substring(1),index-1,lncount+Assambler.getLineCountOffset(),1);
+                        Assembler.appendUnknownLabel(instruction,t1,t2.substring(1),index-1,lncount+Assembler.getLineCountOffset(),1);
                         return new Data();
                     }
 
@@ -1248,7 +1248,7 @@ public final class Mnemonic
                     {
                         if(endProcess==true)
                             throw new MnemonicException(count1-count2,instruction,s.substring(1,s.length()-1));//("Undefined Label"+s);
-                        Assambler.appendUnknownLabel(instruction,t1,t2.substring(1),index-1,lncount+Assambler.getLineCountOffset(),2);
+                        Assembler.appendUnknownLabel(instruction,t1,t2.substring(1),index-1,lncount+Assembler.getLineCountOffset(),2);
                         return new DataEx();
                     }
                 }

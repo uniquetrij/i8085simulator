@@ -1,7 +1,7 @@
 package me.uniquetrij.i8085.giu;
 
-import me.uniquetrij.i8085.Assambler;
-import me.uniquetrij.i8085.AssamblerException;
+import me.uniquetrij.i8085.Assembler;
+import me.uniquetrij.i8085.AssemblerException;
 import me.uniquetrij.i8085.Data;
 import me.uniquetrij.i8085.DataEx;
 import me.uniquetrij.i8085.ProgramCounter;
@@ -957,9 +957,9 @@ public class EditorFrame extends JFrame implements Editable, Serializable {
 
     private void assambleActionPerformed(ActionEvent evt) {
         try {
-            new Assambler();
-            Assambler.assamble(editorPane.getEditor().getText());
-        } catch (AssamblerException e) {
+            new Assembler();
+            Assembler.assamble(editorPane.getEditor().getText());
+        } catch (AssemblerException e) {
             errorText.setForeground(Color.RED);
             splitPane.setDividerLocation(0.8);
             errorText.setText(e.toString());
@@ -979,7 +979,7 @@ public class EditorFrame extends JFrame implements Editable, Serializable {
     private void loadActionPerformed(ActionEvent evt) {
         try {
             new Simulator();
-            Simulator.simulate(Assambler.getCodeList());
+            Simulator.simulate(Assembler.getCodeList());
             origin = Simulator.getProgramCounter();
             //int answer=JOptionPane.showConfirmDialog(this, "assembly loaded into memory.\nDo you want to run simulation?", "assembly Loaded Successfully", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             //if(answer==JOptionPane.YES_OPTION)
@@ -994,7 +994,7 @@ public class EditorFrame extends JFrame implements Editable, Serializable {
             stepTool.setEnabled(true);
             executeStep.setEnabled(true);
             runExecute.setEnabled(true);
-        } catch (SimulatorException | AssamblerException e) {
+        } catch (SimulatorException | AssemblerException e) {
             errorText.setForeground(Color.RED);
             splitPane.setDividerLocation(0.8);
             errorText.setText(e.toString());
@@ -1005,7 +1005,7 @@ public class EditorFrame extends JFrame implements Editable, Serializable {
 
     private void listActionPerformed(ActionEvent evt) {
         EditorPane ep = new EditorPane();
-        ep.getEditor().setText(Assambler.getList());
+        ep.getEditor().setText(Assembler.getList());
         ep.getEditor().setFocusable(false);
         JFrame frame = new JFrame(file.getName() + " - Intel 8085 Assambler Listing");
         frame.add(ep);
@@ -1039,10 +1039,10 @@ public class EditorFrame extends JFrame implements Editable, Serializable {
             }
         });
         //new ValueEditor("Start Execution @ Address",origin.value(),true,this);
-        Simulator.startAt(Assambler.getOrigin());
+        Simulator.startAt(Assembler.getOrigin());
         StringTokenizer stk = new StringTokenizer(editorPane.getBrakePoints(), "*");
         while (stk.hasMoreTokens()) {
-            Assambler.setBrakePoint(Integer.parseInt(stk.nextToken()));
+            Assembler.setBrakePoint(Integer.parseInt(stk.nextToken()));
         }
         do {
             try {
@@ -1074,7 +1074,7 @@ public class EditorFrame extends JFrame implements Editable, Serializable {
         stopExecute.setEnabled(true);
         String str;
         try {
-            str = Assambler.getAddressLinesList().trim();
+            str = Assembler.getAddressLinesList().trim();
             String adr = ProgramCounter.ProgramCounter.data().toString();
             if (stepped == true) {
                 undoManager.undo();
@@ -1116,7 +1116,7 @@ public class EditorFrame extends JFrame implements Editable, Serializable {
         runTool.setEnabled(true);
         runExecute.setEnabled(true);
         stepped = false;
-        Simulator.startAt(Assambler.getOrigin());
+        Simulator.startAt(Assembler.getOrigin());
 
     }
 
